@@ -17,7 +17,7 @@ def input_selection(prompt: str, options: list[str]) -> str:
         ))
 
 
-print("Please thing of a number from 1 to 20, both included.")
+print("Please think of a number from 1 to 20, both included.")
 print("Let me know how good my guess is.\n")
 
 # Here, we implement the computer's strategy for guessing
@@ -31,5 +31,39 @@ for guess in range(1, 21):
     if result == "hit":
         print("Wuhuu!")
         break
+    # why result ('low') also printed below?
+    print("I must have been too low, right?", result) 
 
-    print("I must have been too low, right?", result)
+print('\n')
+print("Please think of a number from 1 to 20, both included.")
+print("Let me know how good my guess is.\n")
+
+# Going from 20 to 1:
+for guess in range(20, 0, -1):
+    result = input_selection(f'My guess is {guess}. \nHow is my guess?'\
+        .format(guess), ['low', 'hit', 'high'])
+    if result=='hit':
+        print('Optur!')
+        break
+    print('Too high... Let me try again!')
+
+print('\n')
+print("Please think of a number from 1 to 20, both included.")
+print("Let me know how good my guess is.\n")
+
+# Taking the middle number.
+lower_bound = 1
+upper_bound = 20
+while True:
+    guess = (lower_bound+upper_bound) // 2
+    result = input_selection('My guess is {}. How is my guess?'\
+        .format(guess), ['low', 'hit', 'high'])
+    if result == 'hit':
+        print('Optur!')
+        break
+    elif result == 'low':
+        lower_bound = guess+1
+        print('Let me try again.')
+    else: # result == 'high':
+        upper_bound = guess-1
+        print('Let me try again.')
